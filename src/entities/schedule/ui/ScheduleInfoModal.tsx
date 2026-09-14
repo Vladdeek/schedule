@@ -31,7 +31,9 @@ export const ScheduleInfoModal = ({
 	const formattedAuditory =
 		data.auditory.split('.')[0] === '25'
 			? 'Дистанционно'
-			: `Аудитория ${data.auditory}`
+			: data.auditory.split('.')[0] === 'СПОРТ'
+				? data.auditory
+				: `Корпус ${data.auditory.split('.')[0]}, аудитория ${data.auditory.split('.')[1]}`
 
 	return (
 		<Modal
