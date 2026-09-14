@@ -1,2 +1,15 @@
 @import 'tailwindcss';
 @import './themes.css';
+
+body {
+	background-color: var(--bg-secondary);
+	font-family: 'Montserrat', sans-serif;
+}
+
+.hide-scrollbar {
+	-ms-overflow-style: none; /* IE и Edge */
+	scrollbar-width: none; /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera */
+}

@@ -1,8 +1,49 @@
 :root {
+	--red-base: #ff3b30;
+	--red-surface: #ff3b3025;
+	--red-deep: #990000;
+
+	--orange-base: #ff9500;
+	--orange-surface: #ff950025;
+	--orange-deep: #995700;
+
+	--yellow-base: #ffd60a;
+	--yellow-surface: #ffd60a25;
+	--yellow-deep: #8a6d00;
+
+	--green-base: #34c759;
+	--green-surface: #34c75925;
+	--green-deep: #0e6222;
+
+	--blue-base: #007aff;
+	--blue-surface: #007aff25;
+	--blue-deep: #004c99;
 }
 
 :root[data-theme='light'] {
+	--bg-primary: #ffffff;
+	--bg-secondary: #f6f6f6;
+
+	--text-primary: #161616;
+	--text-secondary: #525252;
+	--text-tertiary: #a4a4a4;
+
+	--border: #e5e5e5;
+
+	--hero: #820000;
+	--hero-pale: #a65050;
 }
 
 :root[data-theme='dark'] {
+	--bg-primary: #262626;
+	--bg-secondary: #121212;
+
+	--text-primary: #fefefe;
+	--text-secondary: #afafaf;
+	--text-tertiary: #7a7a7a;
+
+	--border: #2e2e2e;
+
+	--hero: #820000;
+	--hero-pale: #a65050;
 }
