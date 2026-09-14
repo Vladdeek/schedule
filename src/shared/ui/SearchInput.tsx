@@ -1,128 +1,81 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import { Search, X } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Button } from './Button'
-
-interface SearchOption {
-	id: string
-	label: string
-	description?: string
-}
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface SearchInputProps {
-	isOpen: boolean
-	onClose: () => void
-	options?: SearchOption[]
-	onSelect?: (option: SearchOption) => void
+	options?: string[]
+	onSelect?: (option: string) => void
 	placeholder?: string
+	className?: string
 }
 
 export const SearchInput = ({
-	isOpen,
-	onClose,
 	options = [],
 	onSelect,
-	placeholder = 'Поиск...',
+	placeholder = 'Поиск группы...',
+	className = '',
 }: SearchInputProps) => {
 	const [value, setValue] = useState('')
-	const inputRef = useRef<HTMLInputElement>(null)
+	const [isFocused, setIsFocused] = useState(false)
 
-	useEffect(() => {
-		if (isOpen) {
-			inputRef.current?.focus()
-		}
-	}, [isOpen])
-
-	useEffect(() => {
-		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === 'Escape') {
-				onClose()
-			}
-		}
-
-		window.addEventListener('keydown', handleKeyDown)
-
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown)
-		}
-	}, [onClose])
-
+	// Фильтрация по совпадению подстроки
 	const filteredOptions = options.filter(option =>
-		option.label.toLowerCase().includes(value.toLowerCase()),
+		option.toLowerCase().includes(value.toLowerCase()),
 	)
 
+	const handleSelect = (option: string) => {
+		setValue(option)
+		onSelect?.(option)
+		setIsFocused(false)
+	}
+
+	const handleClear = () => {
+		setValue('')
+	}
+
 	return (
-		<AnimatePresence>
-			{isOpen && (
-				<motion.div
-					initial={{ width: 0 }}
-					animate={{ width: '100%' }}
-					exit={{ width: 0 }}
-					transition={{
-						duration: 0.25,
-						ease: 'easeInOut',
-					}}
-					className='absolute left-1/2 -translate-x-1/2 overflow-visible'
-				>
-					<div className='flex items-center gap-2'>
-						<div className='relative flex-1'>
-							<div className='flex items-center gap-2 bg-[var(--bg-secondary)]/50 p-2 rounded-xl shadow-inner'>
-								<Search
-									className='shrink-0 text-[var(--text-secondary)]'
-									size={18}
-								/>
+		<div className={`relative w-full ${className}`}>
+			{/* Поле ввода */}
+			<div className='flex items-center gap-2 rounded-2xl bg-[var(--bg-secondary)]/50 p-2 shadow-inner border border-[var(--border)] focus-within:border-[var(--hero)] transition-all'>
+				<input
+					value={value}
+					onChange={e => setValue(e.target.value)}
+					onFocus={() => setIsFocused(true)}
+					onBlur={() => setTimeout(() => setIsFocused(false), 150)}
+					placeholder={placeholder}
+					className='w-full bg-transparent outline-none text-sm text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]'
+				/>
+			</div>
 
-								<input
-									ref={inputRef}
-									value={value}
-									onChange={event => setValue(event.target.value)}
-									placeholder={placeholder}
-									className='w-full bg-transparent outline-none text-sm text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]'
-								/>
-
-								<Button
-									style='transparent'
-									size='square'
-									onClick={onClose}
-									className='shrink-0 p-1'
-								>
-									<X size={18} />
-								</Button>
-							</div>
-
-							<AnimatePresence>
-								{value && filteredOptions.length > 0 && (
-									<motion.div
-										initial={{ opacity: 0, y: -5 }}
-										animate={{ opacity: 1, y: 0 }}
-										exit={{ opacity: 0, y: -5 }}
-										className='absolute left-0 right-0 top-full z-10 mt-2 overflow-hidden rounded-2xl bg-[var(--bg-primary)] shadow-md/10'
-									>
-										{filteredOptions.map(option => (
-											<button
-												key={option.id}
-												type='button'
-												onClick={() => onSelect?.(option)}
-												className='flex w-full flex-col gap-0.5 px-4 py-3 text-left transition-colors hover:bg-[var(--bg-secondary)]'
-											>
-												<span className='text-sm font-medium'>
-													{option.label}
-												</span>
-
-												{option.description && (
-													<span className='text-xs text-[var(--text-secondary)]'>
-														{option.description}
-													</span>
-												)}
-											</button>
-										))}
-									</motion.div>
-								)}
-							</AnimatePresence>
-						</div>
-					</div>
-				</motion.div>
-			)}
-		</AnimatePresence>
+			{/* Выпадающий список */}
+			<AnimatePresence>
+				{isFocused && value && filteredOptions.length > 0 && (
+					<motion.div
+						initial={{ opacity: 0, y: -10, scale: 0.98 }}
+						animate={{ opacity: 1, y: 0, scale: 1 }}
+						exit={{ opacity: 0, y: -8, scale: 0.98 }}
+						transition={{ duration: 0.18, ease: 'easeOut' }}
+						className='absolute left-0 right-0 top-full z-20 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)] shadow-lg hide-scrollbar'
+					>
+						{filteredOptions.map((option, index) => (
+							<motion.button
+								key={option}
+								type='button'
+								initial={{ opacity: 0, x: -6 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.15, delay: index * 0.03 }}
+								onMouseDown={() => handleSelect(option)}
+								className='flex w-full flex-col gap-0.5 border-b border-[var(--border)]/50 px-4 py-3 text-left transition-colors hover:bg-[var(--bg-secondary)] last:border-none'
+							>
+								<span className='text-sm font-medium text-[var(--text-primary)]'>
+									{option}
+								</span>
+							</motion.button>
+						))}
+					</motion.div>
+				)}
+			</AnimatePresence>
+		</div>
 	)
 }

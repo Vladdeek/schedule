@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { Moon, Search, Sun } from 'lucide-react'
-import { Button, SearchInput, Text } from '../../../shared/ui'
+import { Button, SearchInput, Text, TopSearchInput } from '../../../shared/ui'
 import {
 	getSystemTheme,
 	toggleTheme,
@@ -82,7 +82,7 @@ export const AppHeader = () => {
 						transition={{ duration: 0.15 }}
 						className='w-full h-full flex items-center'
 					>
-						<SearchInput
+						<TopSearchInput
 							placeholder={
 								activeMode === 'group'
 									? 'Введите название группы...'

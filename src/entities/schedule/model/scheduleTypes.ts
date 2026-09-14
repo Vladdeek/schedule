@@ -27,6 +27,13 @@ export interface GetScheduleParams {
 	week_number?: number
 }
 
+// Описываем параметры запроса (сделайте опциональными при необходимости)
+export interface GetGroupsParams {
+	faculty_id?: number | string
+	query?: string
+	[key: string]: unknown
+}
+
 export interface CurrentWeekResponse {
 	academic_year: string
 	academic_year_id: string

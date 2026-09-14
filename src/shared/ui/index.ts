@@ -4,6 +4,7 @@ export { Show } from './Show'
 export { Badge } from './Badge'
 export { Modal } from './Modal'
 export { Sheet } from './Sheet'
+export { TopSearchInput } from './TopSearchInput'
 export { SearchInput } from './SearchInput'
 
 // ---> Animations <---

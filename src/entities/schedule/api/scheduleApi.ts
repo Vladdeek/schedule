@@ -3,6 +3,7 @@ import type {
 	ApiLesson,
 	CurrentWeekParams,
 	CurrentWeekResponse,
+	GetGroupsParams,
 	GetScheduleParams,
 } from '../model/scheduleTypes'
 
@@ -48,6 +49,22 @@ export const getGroupStatistics = async (params: {
 	return res.data || res
 }
 
+/**
+ * Получение статистики нагрузки группы за семестр
+ */
+export const getGroups = async (
+	params?: GetGroupsParams,
+): Promise<string[]> => {
+	const response = await api.get<string[]>('api/v1/schedule/groups', {
+		params: {
+			academic_year: '2026/2027',
+			semester: 1,
+			...params,
+		},
+	})
+
+	return response.data
+}
 /**
  * Получение статистики нагрузки преподавателя за семестр
  */
