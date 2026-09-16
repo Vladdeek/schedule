@@ -1,18 +1,26 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Moon, Search, Sun } from 'lucide-react'
-import { Button, SearchInput, Text, TopSearchInput } from '../../../shared/ui'
+import { Button, Text, TopSearchInput } from '../../../shared/ui'
 import {
+	applyTheme,
 	getSystemTheme,
 	toggleTheme,
 } from '../../../shared/lib/theme/changeTheme'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export const AppHeader = () => {
 	const [searchParams] = useSearchParams()
 	const activeMode = searchParams.get('mode')
 
+	const navigate = useNavigate()
+
 	const [theme, setTheme] = useState(getSystemTheme())
+
+	useEffect(() => {
+		applyTheme(theme)
+	}, [theme])
+
 	const [isSearchOpen, setIsSearchOpen] = useState(false)
 
 	return (
@@ -27,7 +35,10 @@ export const AppHeader = () => {
 						transition={{ duration: 0.15 }}
 						className='w-full flex justify-between items-center'
 					>
-						<div className='flex gap-1 items-center'>
+						<div
+							onClick={() => navigate('/schedule')}
+							className='flex gap-1 items-center'
+						>
 							<img
 								className='h-8 w-auto aspect-square'
 								src='./logo.png'
@@ -40,7 +51,7 @@ export const AppHeader = () => {
 						</div>
 
 						<div className='flex gap-1'>
-							<Button
+							{/* <Button
 								className='p-2'
 								size='square'
 								style='transparent'
@@ -58,7 +69,7 @@ export const AppHeader = () => {
 								<p className='w-[18px] h-[18px] aspect-square flex items-center justify-center'>
 									🇷🇺
 								</p>
-							</Button>
+							</Button> */}
 
 							<Button
 								className='p-2'

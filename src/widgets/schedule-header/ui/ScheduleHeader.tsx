@@ -8,6 +8,7 @@ import { WeekToggler } from './WeekToggler'
 import { getCurrentWeek } from '../../../entities/schedule/api/scheduleApi'
 import { useAppSelector } from '../../../app/store/hooks'
 import { getDaySchedule } from '../../../entities/schedule/lib/getDaySchedule'
+import { getLessonsCountText } from '../lib/getLessonsCountText'
 
 export const ScheduleHeader = () => {
 	const { weekSchedule, currentDate } = useAppSelector(state => state.schedule)
@@ -37,7 +38,9 @@ export const ScheduleHeader = () => {
 					{`Сегодня ${format(date, 'd MMMM', { locale: ru })}`}
 				</Text>
 				<Text weight='medium' size='4xl' style='hero'>
-					{isDayOff ? 'Выходной' : `${todaySchedule.length} пар`}
+					{isDayOff
+						? 'Выходной'
+						: `${todaySchedule.length} ${getLessonsCountText(todaySchedule.length)}`}
 				</Text>
 			</div>
 			<div className='flex flex-col gap-1'>

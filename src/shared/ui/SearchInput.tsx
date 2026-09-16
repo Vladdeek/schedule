@@ -58,20 +58,17 @@ export const SearchInput = ({
 						transition={{ duration: 0.18, ease: 'easeOut' }}
 						className='absolute left-0 right-0 top-full z-20 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)] shadow-lg hide-scrollbar'
 					>
-						{filteredOptions.map((option, index) => (
-							<motion.button
+						{filteredOptions.map(option => (
+							<button
 								key={option}
 								type='button'
-								initial={{ opacity: 0, x: -6 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.15, delay: index * 0.03 }}
 								onMouseDown={() => handleSelect(option)}
 								className='flex w-full flex-col gap-0.5 border-b border-[var(--border)]/50 px-4 py-3 text-left transition-colors hover:bg-[var(--bg-secondary)] last:border-none'
 							>
 								<span className='text-sm font-medium text-[var(--text-primary)]'>
 									{option}
 								</span>
-							</motion.button>
+							</button>
 						))}
 					</motion.div>
 				)}

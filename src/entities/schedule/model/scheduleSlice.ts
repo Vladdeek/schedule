@@ -8,7 +8,9 @@ import { format } from 'date-fns'
 import { getCurrentWeek, getSchedule } from '../api/scheduleApi'
 import type { ApiLesson, Lesson, WeekSchedule, WeekDay } from './scheduleTypes'
 
-const GROUP = '2611-0601.2'
+// Вариант через replace:
+const GROUP = (localStorage.getItem('user_group') || '').replace(/^"|"$/g, '')
+
 const SCHEDULE_TYPE = 'group'
 
 const DAY_KEYS: Record<number, WeekDay> = {
@@ -86,7 +88,7 @@ export const fetchWeekSchedule = createAsyncThunk(
 
 		const schedule = await getSchedule({
 			type: 'group',
-			target: '2611-0601.2',
+			target: GROUP,
 			academic_year: week.academic_year,
 			semester: week.semester_number,
 			week_number: week.week_number,

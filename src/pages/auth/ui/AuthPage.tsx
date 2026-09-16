@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Button, SearchInput, Text } from '../../../shared/ui'
 import { getGroups } from '../../../entities/schedule/api/scheduleApi'
+import { useNavigate } from 'react-router-dom'
 
 export const AuthPage = () => {
 	const [selectedGroup, setSelectedGroup] = useState<string | null>(null)
 
 	const [groups, setGroups] = useState<string[]>([])
+
+	const navigate = useNavigate()
 
 	const fetchGroups = async () => {
 		try {
@@ -27,6 +30,8 @@ export const AuthPage = () => {
 
 		// Сохраняем группу в локальное хранилище
 		localStorage.setItem('user_group', JSON.stringify(selectedGroup))
+
+		navigate('/schedule')
 	}
 
 	return (
