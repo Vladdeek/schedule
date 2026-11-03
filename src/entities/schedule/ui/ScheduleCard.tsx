@@ -2,7 +2,6 @@ import { useSearchParams } from 'react-router-dom'
 import { Show, Text } from '../../../shared/ui'
 import type { LESSONS } from '../model/lessonModel'
 import { LessonBadge } from './LessonBage'
-import { User, Group, Users } from 'lucide-react'
 import { isToday, isWithinInterval, parse } from 'date-fns'
 import { useState } from 'react'
 import { ScheduleInfoModal } from './ScheduleInfoModal'
@@ -91,7 +90,7 @@ export const ScheduleCard = ({
 				</div>
 				<div className='flex flex-col w-full gap-1 p-2'>
 					<div className='flex justify-between items-center w-full'>
-						<div className='flex gap-2'>
+						<div className='flex gap-2 '>
 							<LessonBadge lessonType={lessonType} />
 							<Text
 								className='whitespace-nowrap'

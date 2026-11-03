@@ -3,13 +3,11 @@ import { ScheduleCard } from '../../../entities/schedule'
 import { LESSON_GRID } from '../../../shared/config'
 import { getDuration } from '../lib/getDuration'
 
-import { useAppSelector } from '../../../app/store/hooks'
-import { getDaySchedule } from '../../../entities/schedule/lib/getDaySchedule'
+import { useScheduleColumn } from '../model/useScheduleColumn'
 import { Show, Text } from '../../../shared/ui'
 
 export const ScheduleColumn = () => {
-	const { weekSchedule, selectedDate } = useAppSelector(state => state.schedule)
-	const todaySchedule = getDaySchedule(weekSchedule, selectedDate)
+	const todaySchedule = useScheduleColumn()
 
 	return (
 		<div className='flex flex-col w-full gap-3 p-1 overflow-y-auto hide-scrollbar'>

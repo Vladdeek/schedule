@@ -1,8 +1,8 @@
-import { Show, Text } from '../../../shared/ui'
+import { useState } from 'react'
+import { isToday, isWithinInterval, parse } from 'date-fns'
+import { Text } from '../../../shared/ui'
 import type { LESSONS } from '../model/lessonModel'
 import { LessonBadge } from './LessonBage'
-import { isToday, isWithinInterval, parse } from 'date-fns'
-import { useState } from 'react'
 import { ScheduleInfoModal } from './ScheduleInfoModal'
 
 interface ScheduleTableElementProps {
@@ -31,18 +31,11 @@ export const ScheduleTableElement = ({
 	subGroup,
 }: ScheduleTableElementProps) => {
 	const [isOpen, setIsOpen] = useState(false)
-
 	const lessonDate = parse(date, 'yyyy-MM-dd', new Date())
 	const start = parse(`${date} ${startTime}`, 'yyyy-MM-dd HH:mm', new Date())
 	const end = parse(`${date} ${endTime}`, 'yyyy-MM-dd HH:mm', new Date())
-
 	const isActive =
-		isToday(lessonDate) &&
-		isWithinInterval(new Date(), {
-			start,
-			end,
-		})
-
+		isToday(lessonDate) && isWithinInterval(new Date(), { start, end })
 	const displayAuditory =
 		auditory.split('.')[0] === '25' ? 'Дистанционно' : `ауд. ${auditory}`
 
@@ -65,79 +58,61 @@ export const ScheduleTableElement = ({
 				}}
 			/>
 
-			<div
-				onClick={() => setIsOpen(true)}
-				className={`
-					group
-					w-full
-					min-w-0
-					h-full
-					min-h-[80px]
-					cursor-pointer
-					rounded-xl
-					bg-[var(--bg-secondary)]
-					p-3
-					transition-all
-					hover:bg-[var(--bg-tertiary)]
-					${isActive ? 'ring-2 ring-[var(--hero)]' : ''}
-				`}
-			>
-				<div className='flex h-full min-w-0 flex-col'>
-					{/* верхняя строка */}
-					<div className='flex min-w-0 items-center justify-between gap-2'>
-						<div className='min-w-0'>
-							<LessonBadge lessonType={lessonType} />
+			<div className='[container-type:size] h-full w-full min-h-0 min-w-0 overflow-hidden'>
+				<div
+					role='button'
+					tabIndex={0}
+					onClick={() => setIsOpen(true)}
+					onKeyDown={event => {
+						if (event.key === 'Enter' || event.key === ' ') {
+							event.preventDefault()
+							setIsOpen(true)
+						}
+					}}
+					className={`flex h-full min-h-0 min-w-0 flex-col gap-1.5 overflow-hidden rounded-xl bg-[var(--bg-secondary)] p-2 transition-colors hover:bg-[var(--bg-tertiary)] ${isActive ? 'outline outline-2 outline-[var(--hero)] outline-offset-[-2px]' : ''}`}
+				>
+					<div className='flex min-w-0 items-center justify-between gap-1.5'>
+						<div className='min-w-0 flex-[0_1_auto] [&>div]:max-w-full [&>div]:gap-[3px] [&>div]:px-[5px] [&>div]:py-0.5 [&>div]:text-[10px] [&>div]:leading-tight'>
+							<LessonBadge lessonType={lessonType} compact />
 						</div>
 
 						<Text
 							size='xs'
 							style='secondary'
 							title={displayAuditory}
-							className='min-w-0 max-w-[55%] truncate text-right'
+							className='min-w-0 flex-[0_1_auto] truncate whitespace-nowrap text-right @max-[175px]:hidden [@container(max-height:100px)]:hidden'
 						>
 							{displayAuditory}
 						</Text>
 					</div>
 
-					{/* название */}
-					<div className='mt-2 min-w-0 flex-1'>
-						<Text
-							size='sm'
-							weight='medium'
-							className='line-clamp-2 leading-tight'
-							title={discipline}
-						>
-							{discipline}
-						</Text>
-					</div>
+					<Text
+						size='sm'
+						weight='medium'
+						title={discipline}
+						className='min-w-0 flex-1 line-clamp-2 break-words text-[13px] leading-tight [overflow-wrap:anywhere] [@container(max-height:68px)]:line-clamp-1 [@container(max-height:68px)]:text-[10px]'
+					>
+						{discipline}
+					</Text>
 
-					{/* нижняя часть */}
-					<div className='mt-2 flex min-w-0 items-end justify-between gap-2'>
+					<div className='mt-auto flex min-w-0 items-center justify-between gap-1.5 [@container(max-height:100px)]:hidden'>
 						<Text
 							size='xs'
 							style='secondary'
-							className='min-w-0 truncate'
 							title={teacher}
+							className='min-w-0 flex-1 truncate @max-[175px]:hidden'
 						>
 							{teacher}
 						</Text>
-
-						<div className='min-w-0 text-right'>
-							<Text
-								size='xs'
-								style='secondary'
-								className='truncate'
-								title={group}
-							>
-								{group}
-							</Text>
-
-							<Show when={subGroup !== null}>
-								<Text size='xs' style='tertiary'>
-									{subGroup}-я
-								</Text>
-							</Show>
-						</div>
+						<Text
+							size='xs'
+							style='secondary'
+							title={group}
+							className='min-w-0 flex-[0_1_auto] truncate text-right text-[10px] @max-[120px]:text-[9px]'
+						>
+							{group}
+							{subGroup !== null ? ` · ${subGroup}-я` : ''}
+						</Text>
 					</div>
 				</div>
 			</div>
