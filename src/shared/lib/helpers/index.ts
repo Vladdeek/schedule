@@ -1,0 +1,1 @@
+export { getColorId } from './getColorId'

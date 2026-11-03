@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { isToday, isWithinInterval, parse } from 'date-fns'
 import { Text } from '../../../shared/ui'
+import { getColorId } from '../../../shared/lib/helpers'
 import type { LESSONS } from '../model/lessonModel'
 import { LessonBadge } from './LessonBage'
 import { ScheduleInfoModal } from './ScheduleInfoModal'
@@ -31,6 +32,7 @@ export const ScheduleTableElement = ({
 	subGroup,
 }: ScheduleTableElementProps) => {
 	const [isOpen, setIsOpen] = useState(false)
+	const [colorId] = useState(getColorId)
 	const lessonDate = parse(date, 'yyyy-MM-dd', new Date())
 	const start = parse(`${date} ${startTime}`, 'yyyy-MM-dd HH:mm', new Date())
 	const end = parse(`${date} ${endTime}`, 'yyyy-MM-dd HH:mm', new Date())
@@ -58,10 +60,17 @@ export const ScheduleTableElement = ({
 				}}
 			/>
 
-			<div className='[container-type:size] h-full w-full min-h-0 min-w-0 overflow-hidden'>
+			<div className='[container-type:size] h-full w-full min-h-0 min-w-0 overflow-hidden cursor-pointer'>
 				<div
 					role='button'
 					tabIndex={0}
+					style={
+						{
+							'--link-base': `var(--hero${colorId}-base)`,
+							'--link-surface': `var(--hero${colorId}-surface)`,
+							'--link-deep': `var(--hero${colorId}-deep)`,
+						} as React.CSSProperties
+					}
 					onClick={() => setIsOpen(true)}
 					onKeyDown={event => {
 						if (event.key === 'Enter' || event.key === ' ') {
@@ -69,7 +78,7 @@ export const ScheduleTableElement = ({
 							setIsOpen(true)
 						}
 					}}
-					className={`flex h-full min-h-0 min-w-0 flex-col gap-1.5 overflow-hidden rounded-xl bg-[var(--bg-secondary)] p-2 transition-colors hover:bg-[var(--bg-tertiary)] ${isActive ? 'outline outline-2 outline-[var(--hero)] outline-offset-[-2px]' : ''}`}
+					className={`group flex h-full min-h-0 min-w-0 flex-col gap-1.5 overflow-hidden rounded-xl bg-[var(--bg-secondary)] p-2 transition-colors hover:bg-[var(--link-surface)] ${isActive ? 'outline outline-2 outline-[var(--hero)] outline-offset-[-2px]' : ''}`}
 				>
 					<div className='flex min-w-0 items-center justify-between gap-1.5'>
 						<div className='min-w-0 flex-[0_1_auto] [&>div]:max-w-full [&>div]:gap-[3px] [&>div]:px-[5px] [&>div]:py-0.5 [&>div]:text-[10px] [&>div]:leading-tight'>

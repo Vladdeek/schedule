@@ -8,19 +8,20 @@ import {
 } from '../../model/scheduleTableModel'
 
 export const TimeHeader = () => (
-	<div className='sticky left-0 top-0 z-30 flex h-12 items-center border-b border-[var(--border)] bg-[var(--bg-primary)] px-2'>
+	<div className='sticky left-0 top-0 z-3 flex h-12 items-center border-b border-[var(--border)] bg-[var(--bg-primary)] px-2'>
 		<Text weight='semibold'>Время пар</Text>
 	</div>
 )
 
 export const TimeColumn = () => (
 	<div
-		className='sticky left-0 z-10 relative bg-[var(--bg-primary)]'
+		className='sticky left-0 z-2 relative bg-[var(--bg-primary)]'
 		style={{ height: CALENDAR_HEIGHT }}
 	>
 		{TIME_SLOTS.map(([number, slot]) => {
 			const top = (toMinutes(slot.startTime) - FIRST_MINUTE) / MINUTES_PER_PIXEL
-			const bottom = (toMinutes(slot.endTime) - FIRST_MINUTE) / MINUTES_PER_PIXEL
+			const bottom =
+				(toMinutes(slot.endTime) - FIRST_MINUTE) / MINUTES_PER_PIXEL
 			return (
 				<div
 					key={number}

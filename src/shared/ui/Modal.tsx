@@ -54,9 +54,9 @@ export const Modal = ({
 
 	return createPortal(
 		<AnimatePresence>
-			<Fade isVisible={isOpen}>
+			<Fade isVisible={isOpen} className='fixed inset-0 z-[100]'>
 				<div
-					className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 `}
+					className={`fixed inset-0 z-10 flex items-center justify-center bg-black/50 p-4 `}
 					onMouseDown={handleOverlayClick}
 				>
 					<Pop isVisible={isOpen}>

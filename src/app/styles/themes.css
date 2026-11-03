@@ -21,6 +21,31 @@
 }
 
 :root[data-theme='light'] {
+	--hero1-base: #ff3b30;
+	--hero1-surface: #ff3b3025;
+	--hero1-deep: #990000;
+	--hero2-base: #ff9500;
+	--hero2-surface: #ff950025;
+	--hero2-deep: #995700;
+	--hero3-base: #ffd60a;
+	--hero3-surface: #ffd60a25;
+	--hero3-deep: #8a6d00;
+	--hero4-base: #34c759;
+	--hero4-surface: #34c75925;
+	--hero4-deep: #0e6222;
+	--hero5-base: #007aff;
+	--hero5-surface: #007aff25;
+	--hero5-deep: #004c99;
+	--hero6-base: #af52de;
+	--hero6-surface: #af52de25;
+	--hero6-deep: #692b8a;
+	--hero7-base: #ff2d55;
+	--hero7-surface: #ff2d5525;
+	--hero7-deep: #a3002a;
+	--hero8-base: #30b0c7;
+	--hero8-surface: #30b0c725;
+	--hero8-deep: #14616e;
+
 	--bg-primary: #ffffff;
 	--bg-secondary: #f6f6f6;
 
@@ -35,6 +60,31 @@
 }
 
 :root[data-theme='dark'] {
+	--hero1-base: #ff3b30;
+	--hero1-surface: #ff3b3025;
+	--hero1-deep: #990000;
+	--hero2-base: #ff9500;
+	--hero2-surface: #ff950025;
+	--hero2-deep: #995700;
+	--hero3-base: #ffd60a;
+	--hero3-surface: #ffd60a25;
+	--hero3-deep: #8a6d00;
+	--hero4-base: #34c759;
+	--hero4-surface: #34c75925;
+	--hero4-deep: #0e6222;
+	--hero5-base: #007aff;
+	--hero5-surface: #007aff25;
+	--hero5-deep: #004c99;
+	--hero6-base: #af52de;
+	--hero6-surface: #af52de25;
+	--hero6-deep: #692b8a;
+	--hero7-base: #ff2d55;
+	--hero7-surface: #ff2d5525;
+	--hero7-deep: #a3002a;
+	--hero8-base: #30b0c7;
+	--hero8-surface: #30b0c725;
+	--hero8-deep: #14616e;
+
 	--bg-primary: #262626;
 	--bg-secondary: #121212;
 

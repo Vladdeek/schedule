@@ -10,12 +10,16 @@ import {
 import type { WeekDay } from '../../../../entities/schedule/model/scheduleTypes'
 import { Text } from '../../../../shared/ui'
 
-export const DayHeader = ({ days }: { days: { key: WeekDay; title: string }[] }) => (
+export const DayHeader = ({
+	days,
+}: {
+	days: { key: WeekDay; title: string }[]
+}) => (
 	<>
 		{days.map(({ key, title }) => (
 			<div
 				key={key}
-				className='sticky top-0 z-20 flex h-12 items-center border-b border-[var(--border)] bg-[var(--bg-primary)] px-2'
+				className='sticky top-0 z-1 flex h-12 items-center border-b border-[var(--border)] bg-[var(--bg-primary)] px-2'
 			>
 				<Text weight='semibold' size='lg' className='first-letter:uppercase'>
 					{title}
@@ -33,7 +37,8 @@ export const DayColumn = ({ lessons, laneCount }: DayLayout) => (
 		{TIME_SLOTS.map(([number, slot]) => {
 			const top = (toMinutes(slot.startTime) - FIRST_MINUTE) / MINUTES_PER_PIXEL
 			const height =
-				(toMinutes(slot.endTime) - toMinutes(slot.startTime)) / MINUTES_PER_PIXEL
+				(toMinutes(slot.endTime) - toMinutes(slot.startTime)) /
+				MINUTES_PER_PIXEL
 			return (
 				<div
 					key={number}

@@ -3,9 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 interface FadeProps {
 	children: React.ReactNode
 	isVisible: boolean
+	className?: string
 }
 
-export const Fade = ({ children, isVisible }: FadeProps) => {
+export const Fade = ({ children, isVisible, className }: FadeProps) => {
 	return (
 		<AnimatePresence>
 			{isVisible && (
@@ -13,6 +14,7 @@ export const Fade = ({ children, isVisible }: FadeProps) => {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
+					className={className}
 					transition={{
 						duration: 0.3,
 					}}
