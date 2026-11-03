@@ -22,6 +22,9 @@ export default function AppRoutes() {
 				<Route element={<ProtectedRoute />}>
 					<Route path='/schedule' element={<SchedulePage />}></Route>
 				</Route>
+
+				<Route path='/schedule-dev' element={<SchedulePage />}></Route>
+				<Route path='/auth-dev' element={<AuthPage />} />
 			</Routes>
 		</Suspense>
 	)

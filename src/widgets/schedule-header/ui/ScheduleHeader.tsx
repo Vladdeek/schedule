@@ -43,7 +43,7 @@ export const ScheduleHeader = () => {
 						: `${todaySchedule.length} ${getLessonsCountText(todaySchedule.length)}`}
 				</Text>
 			</div>
-			<div className='flex flex-col gap-1'>
+			<div className='lg:hidden flex flex-col gap-1'>
 				{/* <WeekToggler /> */}
 				<DayToggler />
 			</div>
